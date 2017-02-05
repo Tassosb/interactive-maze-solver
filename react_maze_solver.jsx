@@ -1,3 +1,10 @@
-import MazeSolver from './js/maze_solver';
+import Solver from './components/solver';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-const mazeSolver = new MazeSolver();
+document.addEventListener("DOMContentLoaded", () => {
+  const rootEl = document.getElementById('main');
+  ReactDOM.render(<Solver />, rootEl);
+});
+
+//reactDom render mazeSolver component here

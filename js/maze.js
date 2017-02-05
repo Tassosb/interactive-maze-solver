@@ -1,9 +1,15 @@
 import Tile from './tile';
+import { Util } from './util';
 
 export default class Maze {
   constructor (size) {
+    this.endPos = [size - 1, 0];
+    this.startPos = [0, size - 1];
     this.grid = Maze.makeGrid(size);
     this.size = size;
+
+    this.getTile(this.startPos).startTile = true;
+    this.getTile(this.endPos).endTile = true;
   }
 
   static makeGrid (size) {

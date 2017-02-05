@@ -1,11 +1,10 @@
-import Maze from './maze';
 import MazeNode from './maze_node';
 import { Util } from './util';
 
 export default class MazeSolver {
-  constructor () {
-    this.maze = new Maze(MazeSolver.SIZE);
-    this.startPos = [0, 0];
+  constructor (maze) {
+    this.maze = maze;
+    this.startPos = this.maze.startPos;
     this.visitedPos = [this.startPos];
 
     this.buildPathTree();
@@ -60,14 +59,14 @@ export default class MazeSolver {
   }
 
   hasVisited(pos) {
-    for (var i = 0; i < this.visitedPos.length; i++) {
-      if (Util.equalArrays(this.visitedPos[i], pos)) {
-        return true;
-      }
-    }
+    return Util.includesArray(this.visitedPos, pos);
 
-    return false;
+    // for (var i = 0; i < this.visitedPos.length; i++) {
+    //   if (Util.equalArrays(this.visitedPos[i], pos)) {
+    //     return true;
+    //   }
+    // }
+    //
+    // return false;
   }
 }
-
-MazeSolver.SIZE = 4;
