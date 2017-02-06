@@ -45,11 +45,17 @@ export default class Solver extends React.Component {
       solved: true
     });
 
-    if (solvable) { setInterval(this.step, 100); }
+    if (solvable) {
+      this.interval = setInterval(this.step, 100);
+    }
   }
 
   step () {
-    if (this.state.stepIdx === this.state.path.length) { return; }
+    if (this.state.stepIdx === this.state.path.length) {
+      clearInterval(this.interval);
+      return;
+    }
+
     this.setState({ stepIdx: this.state.stepIdx + 1 })
   }
 
