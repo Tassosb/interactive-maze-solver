@@ -72,9 +72,11 @@ export default class Solver extends React.Component {
 
   render () {
     let numSteps = '';
+    let score = '';
 
     if (this.state.solved) {
       numSteps = this.state.solvable ? this.state.stepIdx : 'Oops, cannot solve this one.';
+      score = numSteps > 15 ? Math.round((numSteps - 15) * 100 / this.state.numBlockingTiles) : 0;
     }
 
     return (
@@ -87,6 +89,7 @@ export default class Solver extends React.Component {
         <div className="stats-bar">
           <span>Steps: <strong>{ numSteps }</strong></span>
           <span>Blocking Tiles: <strong>{ this.state.numBlockingTiles }</strong> </span>
+          <span>Score: <strong>{ score }</strong> </span>
         </div>
 
         <div className="button-bar">
