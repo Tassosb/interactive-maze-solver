@@ -13,7 +13,7 @@ export default class MazeSolver {
   findPath (endPos) {
     let endNode = this.rootNode.dfs(endPos);
 
-    return this.tracePathBack(endNode).reverse().map((node) => (node.value));
+    return this.tracePathBack(endNode).map((node) => (node.value));
   }
 
   tracePathBack (endNode) {

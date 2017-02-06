@@ -10,13 +10,17 @@ export default class Solver extends React.Component {
     const maze = new Maze(Solver.SIZE);
     this.state = {
       maze: maze,
-      path: null,
-      numBlockingTiles: 0
+      path: [],
+      numBlockingTiles: 0,
+      stepIdx: 0,
+      solvable: true,
+      solved: false
     };
 
     this.updateSolver = this.updateSolver.bind(this);
     this.runSolver = this.runSolver.bind(this);
     this.resetSolver = this.resetSolver.bind(this);
+    this.step = this.step.bind(this);
   }
 
   updateSolver (tile) {
@@ -31,27 +35,54 @@ export default class Solver extends React.Component {
 
   runSolver() {
     const mazeSolver = new MazeSolver(this.state.maze);
-    this.setState({ path: mazeSolver.findPath(this.state.maze.endPos) });
+    const path = mazeSolver.findPath(this.state.maze.endPos);
+
+    const solvable = (path.length > 0);
+
+    this.setState({
+      path,
+      solvable,
+      solved: true
+    });
+
+    if (solvable) { setInterval(this.step, 100); }
+  }
+
+  step () {
+    if (this.state.stepIdx === this.state.path.length) { return; }
+    this.setState({ stepIdx: this.state.stepIdx + 1 })
   }
 
   resetSolver () {
-    this.setState({ maze: new Maze(Solver.SIZE), path: null, numBlockingTiles: 0 });
+    this.setState({
+      maze: new Maze(Solver.SIZE),
+      path: [],
+      numBlockingTiles: 0 ,
+      stepIdx: 0,
+      solved: false,
+      solvable: true
+    });
   }
 
   render () {
     let numSteps = '';
 
-    if (this.state.path) {
-      numSteps = this.state.path.length > 0 ? this.state.path.length : 'Oops, cannot solve this one.';
+    if (this.state.solved) {
+      numSteps = this.state.solvable ? this.state.stepIdx : 'Oops, cannot solve this one.';
     }
 
     return (
       <div className="solver">
-        <MazeComponent maze={ this.state.maze } updateSolver={ this.updateSolver } path={ this.state.path } />
+        <MazeComponent
+          maze={ this.state.maze }
+          updateSolver={ this.updateSolver }
+          path={ this.state.path.slice(0, this.state.stepIdx) }/>
+
         <div className="stats-bar">
           <span>Steps: <strong>{ numSteps }</strong></span>
           <span>Blocking Tiles: <strong>{ this.state.numBlockingTiles }</strong> </span>
         </div>
+
         <div className="button-bar">
           <span onClick={ this.runSolver } className="button run-button">Run Solver</span>
           <span onClick={ this.resetSolver } className="button reset-button">Reset</span>
