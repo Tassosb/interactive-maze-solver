@@ -1,8 +1,8 @@
 {
-  "name": "react-minesweeper",
+  "name": "interactive-maze-solver",
   "version": "1.0.0",
   "description": "",
-  "main": "minesweeper.js",
+  "main": "react-maze-solver.jsx",
   "scripts": {
     "start": "webpack-dev-server --inline",
     "webpack": "webpack",
