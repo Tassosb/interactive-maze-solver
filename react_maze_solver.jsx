@@ -6,5 +6,3 @@ document.addEventListener("DOMContentLoaded", () => {
   const rootEl = document.getElementById('main');
   ReactDOM.render(<Solver />, rootEl);
 });
-
-//reactDom render mazeSolver component here

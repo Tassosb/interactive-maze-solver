@@ -7,9 +7,9 @@ export default class Solver extends React.Component {
   constructor(props) {
     super(props);
 
-    const maze = new Maze(Solver.SIZE);
+    this.maze = new Maze(Solver.SIZE);
+    // maze: maze,
     this.state = {
-      maze: maze,
       path: [],
       numBlockingTiles: 0,
       stepIdx: 0,
@@ -27,15 +27,15 @@ export default class Solver extends React.Component {
     if (tile.blocking || tile.startTile || tile.endTile) { return; }
 
     tile.blocking = true;
+
     this.setState({
-      maze: this.state.maze,
       numBlockingTiles: this.state.numBlockingTiles + 1
     });
   }
 
   runSolver() {
-    const mazeSolver = new MazeSolver(this.state.maze);
-    const path = mazeSolver.findPath(this.state.maze.endPos);
+    const mazeSolver = new MazeSolver(this.maze);
+    const path = mazeSolver.findPath(this.maze.endPos);
 
     const solvable = (path.length > 0);
 
@@ -60,8 +60,8 @@ export default class Solver extends React.Component {
   }
 
   resetSolver () {
+    this.maze = new Maze(Solver.SIZE);
     this.setState({
-      maze: new Maze(Solver.SIZE),
       path: [],
       numBlockingTiles: 0 ,
       stepIdx: 0,
@@ -82,7 +82,7 @@ export default class Solver extends React.Component {
     return (
       <div className="solver">
         <MazeComponent
-          maze={ this.state.maze }
+          maze={ this.maze }
           updateSolver={ this.updateSolver }
           path={ this.state.path.slice(0, this.state.stepIdx) }/>
 

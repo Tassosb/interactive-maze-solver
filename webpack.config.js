@@ -1,7 +1,9 @@
+const path = require('path');
+
 module.exports = {
   entry: './react_maze_solver.jsx',
   output: {
-    path: './',
+    path: path.resolve(__dirname, '/'),
     filename: 'bundle.js',
   },
   module: {

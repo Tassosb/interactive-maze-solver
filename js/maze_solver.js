@@ -60,13 +60,5 @@ export default class MazeSolver {
 
   hasVisited(pos) {
     return Util.includesArray(this.visitedPos, pos);
-
-    // for (var i = 0; i < this.visitedPos.length; i++) {
-    //   if (Util.equalArrays(this.visitedPos[i], pos)) {
-    //     return true;
-    //   }
-    // }
-    //
-    // return false;
   }
 }
