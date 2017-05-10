@@ -1,7 +1,7 @@
 # Interactive Maze Solver
 Build mazes and watch the app solve them.
 
-[Live Link](http://tassosbareiss.com/interactive-maze-solver/, "Live Link")
+[Live Link](http://tassosbareiss.com/interactive-maze-solver "Live Link")
 
 ## Libraries Used
 - React
